@@ -24,32 +24,6 @@ class Embedding(nn.Module):
     def forward(self, x):
         return self.embedding(x) 
     
-
-
-
-
-class position_encoding(nn.Module):
-
-    def __init__(self, embeddingsinfo):
-        super().__init__()
-        batch_size, seq_length, d_model = embeddingsinfo.size()
-        pe = torch.zeros(seq_length, d_model)
-        position = torch.arange(0, seq_length, dtype=torch.float).unsqueeze(1)
-
-        # Calculate the division term using the log-space trick for numerical stability
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
-        
-    
-        pe[:, 0::2] = torch.sin(position / div_term)
-        pe[:, 1::2] = torch.cos(position/ div_term)
-        print(pe.size())
-        pe = pe.unsqueeze(0)
-        print(pe.size())
-        self.register_buffer('pe', pe)
-        
-    def forward(self, embeddings):
-        print(embeddings.shape)
-        return embeddings + self.pe[:, :embeddings.size(1), :]
         
 
 
