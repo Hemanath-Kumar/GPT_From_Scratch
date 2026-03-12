@@ -83,11 +83,11 @@ class transformer(nn.Module):
 
         self.attention = multihead_attention(d_model, num_heads=2)
 
-        self.norm1 = layernormalition(d_model)
+        self.norm1 = layernormalization(d_model)
 
         self.feedforward = feedforward(d_model, d_ff=48)
 
-        self.norm2 = layernormalition(d_model)
+        self.norm2 = layernormalization(d_model)
 
         self.linear = nn.Linear(d_model, vocab_size)
 
